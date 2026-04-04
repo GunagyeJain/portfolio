@@ -55,7 +55,7 @@ export default function About() {
         <div className="about-edu">
           <p className="about-edu-label">EDUCATION</p>
           <p className="about-edu-name">
-            B.E. Computer Engineering
+            Thapar Institute of Engineering &amp; Technology
           </p>
           <p className="about-edu-detail">
             B.E. Computer Engineering · 2024–2028

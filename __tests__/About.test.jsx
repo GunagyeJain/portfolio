@@ -8,7 +8,8 @@ test('renders about heading', () => {
 
 test('renders bio text', () => {
   render(<About />)
-  expect(screen.getByText(/Thapar Institute/i)).toBeInTheDocument()
+  // bio paragraph contains Thapar Institute
+  expect(screen.getAllByText(/Thapar Institute/i).length).toBeGreaterThan(0)
 })
 
 test('renders key skills', () => {
