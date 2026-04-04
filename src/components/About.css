@@ -1,0 +1,98 @@
+.about {
+  background: var(--bg);
+  border-bottom: 5px solid var(--border);
+  display: flex;
+}
+
+.about-left {
+  flex: 1.4;
+  padding: 60px 48px 60px 40px;
+  border-right: 3px solid var(--border);
+}
+
+.about-heading {
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 900;
+  font-family: var(--font-heading);
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.about-body {
+  font-size: 11px;
+  line-height: 2;
+  color: #444;
+  max-width: 420px;
+}
+
+.about-edu {
+  margin-top: 28px;
+  border-top: 2px solid var(--border);
+  padding-top: 16px;
+}
+
+.about-edu-label {
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.about-edu-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.about-edu-detail {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.about-right {
+  flex: 0.8;
+  background: var(--bg-secondary);
+  padding: 60px 28px;
+}
+
+.about-skills-label {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.about-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-chip {
+  display: inline-block;
+  border: 2px solid var(--border);
+  padding: 4px 10px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--text);
+  background: transparent;
+}
+
+.skill-chip-primary {
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .about { flex-direction: column; }
+  .about-left {
+    padding: 40px 20px 32px 24px;
+    border-right: none;
+    border-bottom: 3px solid var(--border);
+  }
+  .about-right { padding: 28px 20px; }
+}
