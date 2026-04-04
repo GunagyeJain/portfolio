@@ -1,5 +1,5 @@
 .project-card {
-  background: var(--bg);
+  background: var(--bg-secondary);
   border-right: 3px solid var(--border);
   padding: 28px 22px;
   position: relative;
@@ -14,7 +14,8 @@
 
 .project-card-ghost {
   position: absolute;
-  top: 8px; right: 12px;
+  top: 8px;
+  right: 12px;
   font-size: 48px;
   font-weight: 900;
   font-family: var(--font-heading);
@@ -74,7 +75,9 @@
   color: var(--text);
   border-bottom: 1px solid var(--text);
   padding-bottom: 1px;
-  transition: color 0.15s, border-color 0.15s;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
 }
 
 .project-link:hover {
@@ -83,5 +86,7 @@
 }
 
 @media (hover: none) {
-  .project-card { transform: none !important; }
+  .project-card {
+    transform: none !important;
+  }
 }

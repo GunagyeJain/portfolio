@@ -6,7 +6,7 @@ export const projects = [
     description:
       'Road condition reporting & visualization platform with interactive map interface for location-based insights.',
     tech: ['Flask', 'JavaScript', 'SQL'],
-    link: 'https://github.com/gunagye-jain/roadreport',
+    link: 'https://github.com/GunagyeJain',
   },
   {
     id: '02',
@@ -15,7 +15,7 @@ export const projects = [
     description:
       'Relational database system with ER modeling, normalization, and full rental/review management backend.',
     tech: ['PostgreSQL', 'Oracle SQL'],
-    link: 'https://github.com/gunagye-jain/book-rental',
+    link: 'https://github.com/GunagyeJain',
   },
   {
     id: '03',
@@ -24,6 +24,6 @@ export const projects = [
     description:
       'Multilingual translation system using IndicTrans2 generating structured JSON insights for dashboard integration.',
     tech: ['Python', 'IndicTrans2', 'NLP'],
-    link: 'https://github.com/gunagye-jain/multilingual-insights',
+    link: 'https://github.com/GunagyeJain',
   },
 ]

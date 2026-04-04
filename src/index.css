@@ -1,23 +1,31 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --accent: #00d4ff;
+  /* --accent: #00d4ff; */
+  --accent: #00c3ff;
   --bg: #f0ece0;
   --bg-secondary: #e8e4d4;
   --text: #111;
   --text-muted: #666;
   --border: #111;
-  --font-heading: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+  --font-heading: "Arial Black", "Arial Bold", Arial, sans-serif;
   --font-body: Arial, sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  --font-mono: "Courier New", Courier, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -28,7 +36,9 @@ body {
 }
 
 @media (hover: none) {
-  body { cursor: auto; }
+  body {
+    cursor: auto;
+  }
 }
 
 a {
@@ -36,4 +46,6 @@ a {
   color: inherit;
 }
 
-.accent { color: var(--accent); }
+.accent {
+  color: var(--accent);
+}

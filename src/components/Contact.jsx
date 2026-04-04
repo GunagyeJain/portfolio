@@ -9,12 +9,12 @@ const links = [
   },
   {
     label: 'GITHUB ↗',
-    href: 'https://github.com/gunagye-jain',
+    href: 'https://github.com/GunagyeJain',
     primary: false,
   },
   {
     label: 'LINKEDIN ↗',
-    href: 'https://linkedin.com/in/gunagye-jain',
+    href: 'https://www.linkedin.com/in/gunagye-jain-b12962269/',
     primary: false,
   },
 ]
