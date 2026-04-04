@@ -21,8 +21,9 @@ vi.mock('framer-motion', () => {
 
   return {
     motion,
-    AnimatePresence: ({ children }) => children,
+    AnimatePresence: ({ children }) => children, // Note: mode prop ignored in tests
     useMotionValue: () => ({ set: vi.fn(), get: () => 0 }),
+    useSpring: () => ({ set: vi.fn(), get: () => 0 }),
     useTransform: () => 0,
     useInView: () => true,
   }
