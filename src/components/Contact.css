@@ -1,0 +1,66 @@
+.contact {
+  background: var(--bg);
+  padding: 80px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-ghost {
+  position: absolute;
+  bottom: -20px; right: -10px;
+  font-size: 140px;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: rgba(17, 17, 17, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.contact-heading {
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 900;
+  font-family: var(--font-heading);
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.contact-sub {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-block;
+  border: 2px solid var(--border);
+  padding: 10px 20px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--text);
+  transition: opacity 0.2s;
+}
+
+.contact-link:hover { opacity: 0.7; }
+
+.contact-link-primary {
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .contact { padding: 48px 20px; }
+  .contact-ghost { display: none; }
+  .contact-links { flex-direction: column; }
+  .contact-link { text-align: center; }
+}
