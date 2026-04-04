@@ -36,7 +36,7 @@
 .hero-index {
   font-size: 9px;
   letter-spacing: 5px;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 16px;
   font-family: var(--font-mono);
 }
@@ -162,7 +162,7 @@
 .hero-right-label {
   font-size: 8px;
   letter-spacing: 3px;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 12px;
 }
 
@@ -175,7 +175,7 @@
 }
 
 .stat {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid rgba(17, 17, 17, 0.2);
   padding-top: 10px;
 }
 
@@ -190,7 +190,7 @@
 
 .stat-label {
   font-size: 8px;
-  color: #999;
+  color: var(--text-muted);
   letter-spacing: 2px;
   font-family: var(--font-mono);
 }
