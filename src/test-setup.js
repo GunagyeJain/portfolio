@@ -2,6 +2,13 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import { vi } from 'vitest'
 
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  observe = vi.fn()
+  disconnect = vi.fn()
+}
+
 vi.mock('framer-motion', () => {
   const createMotionComponent = (tag) => {
     const Component = React.forwardRef(function MotionComponent(
