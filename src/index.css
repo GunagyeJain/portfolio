@@ -1,1 +1,39 @@
-/* Global styles will be added in Task 2 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent: #00d4ff;
+  --bg: #f0ece0;
+  --bg-secondary: #e8e4d4;
+  --text: #111;
+  --text-muted: #666;
+  --border: #111;
+  --font-heading: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+  --font-body: Arial, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  cursor: none;
+}
+
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.accent { color: var(--accent); }
