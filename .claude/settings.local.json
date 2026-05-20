@@ -6,7 +6,17 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(npm run:*)",
-      "mcp__plugin_playwright_playwright__browser_take_screenshot"
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "PowerShell(Get-ChildItem \"d:\\\\PROJECTS\\\\Portfolio\\\\src\" -Recurse -File | Where-Object { $_.Name -ne 'main.jsx' } | Remove-Item -Force; Get-ChildItem \"d:\\\\PROJECTS\\\\Portfolio\\\\src\" -Recurse -Directory | Sort-Object FullName -Descending | Remove-Item -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path \"d:\\\\PROJECTS\\\\Portfolio\\\\src\\\\components\" -Force | Out-Null; Write-Host \"Cleanup done\")",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "PowerShell(Set-Location \"d:\\\\PROJECTS\\\\Portfolio\"; $job = Start-Job -ScriptBlock { Set-Location \"d:\\\\PROJECTS\\\\Portfolio\"; npm run dev }; Start-Sleep -Seconds 6; Receive-Job $job; Write-Host \"---job state: $\\($job.State\\)\")",
+      "PowerShell(netstat -an)",
+      "PowerShell(Set-Location \"d:\\\\PROJECTS\\\\Portfolio\"; $global:viteJob = Start-Job -ScriptBlock { Set-Location \"d:\\\\PROJECTS\\\\Portfolio\"; npm run dev }; Write-Host \"Job ID: $\\($global:viteJob.Id\\)\"; Start-Sleep -Seconds 8; netstat -an | findstr \"LISTENING\" | findstr \"5173\")",
+      "mcp__plugin_playwright_playwright__browser_close",
+      "PowerShell(New-Item -ItemType Directory -Path \"d:\\\\PROJECTS\\\\Portfolio\\\\src\\\\components\\\\sections\" -Force)",
+      "Bash(npx vite *)",
+      "Bash(python3 -c ' *)",
+      "Bash(git -C \"d:\\\\PROJECTS\\\\Portfolio\" status --short)"
     ]
   }
 }

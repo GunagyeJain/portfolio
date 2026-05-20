@@ -1,51 +1,52 @@
-import { useRef } from 'react'
-import './ProjectCard.css'
+import { forwardRef } from 'react'
 
-export default function ProjectCard({ project }) {
-  const cardRef = useRef(null)
-
-  const handleMouseMove = (e) => {
-    const card = cardRef.current
-    if (!card) return
-    const { left, top, width, height } = card.getBoundingClientRect()
-    const x = (e.clientX - left) / width - 0.5
-    const y = (e.clientY - top) / height - 0.5
-    card.style.transform = `perspective(700px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.02)`
-  }
-
-  const handleMouseLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.transform =
-        'perspective(700px) rotateY(0deg) rotateX(0deg) scale(1)'
-    }
-  }
+const ProjectCard = forwardRef(function ProjectCard({ project, index }, ref) {
+  const num = String(index).padStart(2, '0')
 
   return (
     <article
-      ref={cardRef}
+      ref={ref}
       className="project-card"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      style={{ '--card-color': project.color }}
     >
-      <span className="project-card-ghost" aria-hidden="true">
-        {project.id}
-      </span>
-      <span className="project-tag">{project.tag}</span>
-      <h3 className="project-title">{project.title}</h3>
-      <p className="project-desc">{project.description}</p>
-      <div className="project-tech">
-        {project.tech.map((t) => (
-          <span key={t} className="tech-pill">{t}</span>
-        ))}
+      <div className="project-card__grid" />
+      <div className="project-card__watermark">{num}</div>
+
+      <div className="project-card__corner project-card__corner--tl" />
+      <div className="project-card__corner project-card__corner--tr" />
+      <div className="project-card__corner project-card__corner--bl" />
+      <div className="project-card__corner project-card__corner--br" />
+
+      <div className="project-card__inner">
+        <header className="project-card__header">
+          <h3 className="project-card__name">{project.name}</h3>
+          <span className="project-card__index">[ {num} / 04 ] — {project.year}</span>
+        </header>
+
+        <div className="project-card__rule" />
+
+        <p className="project-card__desc">{project.description}</p>
+
+        <footer className="project-card__footer">
+          <div className="project-card__tech">
+            {project.tech.map((t) => (
+              <span key={t} className="project-card__tag">{t}</span>
+            ))}
+          </div>
+
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            className="project-card__link"
+            data-hover
+          >
+            VIEW PROJECT →
+          </a>
+        </footer>
       </div>
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="project-link"
-      >
-        VIEW PROJECT ↗
-      </a>
     </article>
   )
-}
+})
+
+export default ProjectCard

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card Design Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #111;
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 60px 40px;
+      color: #fff;
+    }
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: #555;
+      margin-bottom: 48px;
+      text-transform: uppercase;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 680px);
+      gap: 60px 80px;
+    }
+    .option-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #666;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .card {
+      width: 680px;
+      height: 420px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* ───────────────────────────────────────── */
+    /* OPTION 1 — Blueprint                      */
+    /* ───────────────────────────────────────── */
+    .card-blueprint {
+      background: #2D1B69;
+    }
+    .card-blueprint .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><line x1='12' y1='16' x2='20' y2='16' stroke='rgba(255,255,255,0.07)' stroke-width='0.6'/><line x1='16' y1='12' x2='16' y2='20' stroke='rgba(255,255,255,0.07)' stroke-width='0.6'/></svg>"),
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .card-blueprint .watermark {
+      position: absolute;
+      bottom: -30px;
+      right: -10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 200px;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+    /* corner brackets */
+    .card-blueprint .corner {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+    }
+    .card-blueprint .corner::before,
+    .card-blueprint .corner::after {
+      content: '';
+      position: absolute;
+      background: rgba(255,255,255,0.35);
+    }
+    .card-blueprint .corner::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+    .card-blueprint .corner::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+    .card-blueprint .corner--tl { top: 20px; left: 20px; }
+    .card-blueprint .corner--tr { top: 20px; right: 20px; transform: scaleX(-1); }
+    .card-blueprint .corner--bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+    .card-blueprint .corner--br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+    .card-blueprint .inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 36px 40px;
+      gap: 14px;
+    }
+    .card-blueprint .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .card-blueprint .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+    .card-blueprint .index {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+    }
+    .card-blueprint .rule {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+    .card-blueprint .desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      flex: 1;
+    }
+    .card-blueprint .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-blueprint .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-blueprint .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+    .card-blueprint .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 100px;
+      padding: 7px 18px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+
+    /* ───────────────────────────────────────── */
+    /* OPTION 2 — Glow + Grain                   */
+    /* ───────────────────────────────────────── */
+    .card-glow {
+      background: #2D1B69;
+    }
+    .card-glow .glow-top {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(140,100,255,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .card-glow .glow-bottom {
+      position: absolute;
+      bottom: -80px;
+      left: -40px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(80,40,180,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* SVG grain filter */
+    .card-glow .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.45;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    /* thin horizontal lines for texture */
+    .card-glow .lines {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.015) 3px,
+        rgba(255,255,255,0.015) 4px
+      );
+      pointer-events: none;
+    }
+    .card-glow .inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 36px 40px;
+      gap: 14px;
+    }
+    .card-glow .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .card-glow .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(160,120,255,0.6);
+    }
+    .card-glow .year {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    .card-glow .rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+    }
+    .card-glow .desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      flex: 1;
+    }
+    .card-glow .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-glow .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-glow .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+    .card-glow .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 100px;
+      padding: 7px 18px;
+      white-space: nowrap;
+      text-decoration: none;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(4px);
+    }
+
+
+    /* ───────────────────────────────────────── */
+    /* OPTION 3 — Diagonal Split                 */
+    /* ───────────────────────────────────────── */
+    .card-split {
+      background: #2D1B69;
+    }
+    .card-split .split-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a0d45 0%, #1a0d45 45%, #3d2899 45%, #3d2899 100%);
+    }
+    .card-split .arc {
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .card-split .arc-2 {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+    .card-split .diagonal-line {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent calc(45% - 1px), rgba(255,255,255,0.06) calc(45%), transparent calc(45% + 1px));
+      pointer-events: none;
+    }
+    .card-split .inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 36px 40px;
+      gap: 14px;
+    }
+    .card-split .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .card-split .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+    .card-split .year {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    .card-split .rule {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+    .card-split .desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      flex: 1;
+    }
+    .card-split .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-split .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-split .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+    .card-split .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 100px;
+      padding: 7px 18px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+
+    /* ───────────────────────────────────────── */
+    /* OPTION 4 — Technical Annotation           */
+    /* ───────────────────────────────────────── */
+    .card-tech {
+      background: #2D1B69;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-tech .scan-line {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 3px
+      );
+      pointer-events: none;
+    }
+    /* top bar */
+    .card-tech .topbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 36px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 10px;
+    }
+    .card-tech .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+    .card-tech .topbar-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.25);
+      margin-left: auto;
+    }
+    /* side label */
+    .card-tech .side-label {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.15);
+      white-space: nowrap;
+      padding-left: 36px;
+    }
+    .card-tech .inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 52px 40px 36px;
+      gap: 14px;
+    }
+    .card-tech .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .card-tech .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+    .card-tech .meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+    }
+    .card-tech .year {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    .card-tech .id {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.2);
+    }
+    .card-tech .rule-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-tech .rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+    .card-tech .rule-tick {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+    }
+    .card-tech .desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+      flex: 1;
+    }
+    .card-tech .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-tech .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .card-tech .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px;
+      padding: 3px 8px;
+    }
+    .card-tech .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 100px;
+      padding: 7px 18px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    /* show all 4 cards with all 4 project colors too */
+    .all-colors {
+      margin-top: 60px;
+    }
+    .all-colors h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #555;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .color-row {
+      display: flex;
+      gap: 20px;
+    }
+    .mini-card {
+      flex: 1;
+      height: 80px;
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px 16px;
+    }
+    .mini-card span {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Card Design Options — MockMate example (Purple #2D1B69)</h1>
+
+  <div class="grid">
+
+    <!-- OPTION 1: Blueprint -->
+    <div>
+      <div class="option-label">Option 1 — Blueprint</div>
+      <div class="card card-blueprint">
+        <div class="grid-bg"></div>
+        <div class="watermark">01</div>
+        <div class="corner corner--tl"></div>
+        <div class="corner corner--tr"></div>
+        <div class="corner corner--bl"></div>
+        <div class="corner corner--br"></div>
+        <div class="inner">
+          <div class="header">
+            <span class="name">MockMate</span>
+            <span class="index">[ 01 / 04 ] — 2025</span>
+          </div>
+          <div class="rule"></div>
+          <p class="desc">AI-powered mock interview platform with real-time voice feedback, adaptive questioning, and performance analytics.</p>
+          <div class="footer">
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">Prisma</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <a href="#" class="btn">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 2: Glow + Grain -->
+    <div>
+      <div class="option-label">Option 2 — Glow + Grain</div>
+      <div class="card card-glow">
+        <div class="glow-top"></div>
+        <div class="glow-bottom"></div>
+        <div class="grain"></div>
+        <div class="lines"></div>
+        <div class="inner">
+          <div class="header">
+            <span class="name">MockMate</span>
+            <span class="year">2025</span>
+          </div>
+          <div class="rule"></div>
+          <p class="desc">AI-powered mock interview platform with real-time voice feedback, adaptive questioning, and performance analytics.</p>
+          <div class="footer">
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">Prisma</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <a href="#" class="btn">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 3: Diagonal Split -->
+    <div>
+      <div class="option-label">Option 3 — Diagonal Split</div>
+      <div class="card card-split">
+        <div class="split-bg"></div>
+        <div class="arc"></div>
+        <div class="arc-2"></div>
+        <div class="diagonal-line"></div>
+        <div class="inner">
+          <div class="header">
+            <span class="name">MockMate</span>
+            <span class="year">2025</span>
+          </div>
+          <div class="rule"></div>
+          <p class="desc">AI-powered mock interview platform with real-time voice feedback, adaptive questioning, and performance analytics.</p>
+          <div class="footer">
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">Prisma</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <a href="#" class="btn">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 4: Technical Annotation -->
+    <div>
+      <div class="option-label">Option 4 — Technical Annotation</div>
+      <div class="card card-tech">
+        <div class="scan-line"></div>
+        <div class="topbar">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <span class="topbar-label">PROJECT_01 — FULL STACK · AI</span>
+        </div>
+        <div class="inner">
+          <div class="header">
+            <span class="name">MockMate</span>
+            <div class="meta">
+              <span class="year">2025</span>
+              <span class="id">#MKM-001</span>
+            </div>
+          </div>
+          <div class="rule-row">
+            <div class="rule"></div>
+            <span class="rule-tick">——</span>
+          </div>
+          <p class="desc">AI-powered mock interview platform with real-time voice feedback, adaptive questioning, and performance analytics.</p>
+          <div class="footer">
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">Prisma</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <a href="#" class="btn">VIEW PROJECT →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- All 4 project colors preview -->
+  <div class="all-colors">
+    <h2>All 4 project colors (whichever design you pick will use these)</h2>
+    <div class="color-row">
+      <div class="mini-card" style="background:#0F2A4A"><span>Multilingual Research</span></div>
+      <div class="mini-card" style="background:#1A3D2B"><span>Book Rental System</span></div>
+      <div class="mini-card" style="background:#8B3A0F"><span>RoadReport</span></div>
+      <div class="mini-card" style="background:#2D1B69"><span>MockMate</span></div>
+    </div>
+  </div>
+
+</body>
+</html>
