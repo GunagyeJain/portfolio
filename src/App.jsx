@@ -232,6 +232,7 @@ export default function App() {
 
   // Input listeners — only update the target, never the rendered position
   useEffect(() => {
+    if (IS_MOBILE) return
     const clamp = (v) => Math.max(0, Math.min(MAX_PROG, v))
 
     const onWheel = (e) => {
@@ -273,6 +274,7 @@ export default function App() {
   // Canvas setup — sizes the canvas and pre-generates static fog particles.
   // Particles are fixed positions; the RAF loop only reads them, never mutates.
   useEffect(() => {
+    if (IS_MOBILE) return
     const init = () => {
       const c = fogRef.current
       if (!(c instanceof HTMLCanvasElement)) return
