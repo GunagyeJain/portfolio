@@ -1395,4 +1395,20 @@ a {
     font-size: 40vw;
   }
 
+  /* Hide decorative frame / fiducial / sheet-tag elements */
+  .about__sheet-tag,
+  .contact__sheet-tag {
+    display: none;
+  }
+
+  .about__frame,
+  .about__fid {
+    display: none;
+  }
+
+  .contact__frame,
+  .contact__fid {
+    display: none;
+  }
+
 } /* end @media (max-width: 768px) */
