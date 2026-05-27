@@ -110,7 +110,7 @@ const Statement = forwardRef(function Statement(_, ref) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="statement">
+    <section ref={sectionRef} className="statement section-animate">
       <canvas ref={canvasRef} className="statement__grid" />
 
       <div className="statement__inner">

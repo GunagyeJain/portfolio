@@ -206,7 +206,7 @@ const About = forwardRef(function About(_, ref) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="about">
+    <section ref={sectionRef} className="about section-animate">
 
       <canvas ref={canvasRef} className="about__grid" />
 

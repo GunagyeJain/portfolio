@@ -28,7 +28,7 @@ const Contact = forwardRef(function Contact(_, ref) {
   }));
 
   return (
-    <section ref={sectionRef} className="contact">
+    <section ref={sectionRef} className="contact section-animate">
       <div className="contact__grid crosshatch-light" />
 
       <div className="contact__frame" />
