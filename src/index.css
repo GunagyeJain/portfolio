@@ -1371,4 +1371,28 @@ a {
     margin-top: 40px;
   }
 
+  /* ── Contact ────────────────────────────────────────────── */
+  .contact {
+    min-height: 100svh;
+    padding: 80px 24px;
+  }
+
+  .contact-heading {
+    font-size: clamp(52px, 16vw, 96px);
+  }
+
+  .contact-links {
+    flex-direction: column;
+  }
+
+  .contact-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Background watermark — scale down */
+  .contact-bgword {
+    font-size: 40vw;
+  }
+
 } /* end @media (max-width: 768px) */
