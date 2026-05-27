@@ -8,6 +8,8 @@ import ProjectsDeck from './components/sections/ProjectsDeck'
 import About from './components/sections/About'
 import Contact from './components/sections/Contact'
 
+const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches
+
 // px of wheel delta per one full section unit
 const SCROLL_DIST = 800
 // Max progress — grows as sections are added (currently: Statement + Deck entry + 4 cards + transition + About + Contact + arch loop)
@@ -41,6 +43,7 @@ export default function App() {
 
   // RAF loop — drives all panel positions every frame
   useEffect(() => {
+    if (IS_MOBILE) return
     let rafId
 
     const tick = () => {
