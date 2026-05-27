@@ -1315,4 +1315,29 @@ a {
     font-size: clamp(36px, 12vw, 72px);
   }
 
+  /* ── Projects Deck ──────────────────────────────────────── */
+  .projects-deck {
+    padding: 80px 24px;
+    min-height: auto;
+  }
+
+  .projects-deck__scene {
+    transform: none !important;
+    perspective: none;
+  }
+
+  .projects-deck__stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-card {
+    position: relative !important;
+    width: 100% !important;
+    z-index: auto !important;
+    pointer-events: auto !important;
+  }
+
 } /* end @media (max-width: 768px) */
