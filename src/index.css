@@ -1280,4 +1280,26 @@ a {
     padding: 0 20px;
   }
 
+  /* ── Hero ──────────────────────────────────────────────── */
+  .hero {
+    min-height: 100svh;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero__name {
+    font-size: clamp(56px, 18vw, 96px);
+  }
+
+  .hero__badge-row {
+    margin-top: 16px;
+  }
+
+  .hero__callout {
+    margin-top: auto;
+    padding-bottom: 32px;
+  }
+
 } /* end @media (max-width: 768px) */
