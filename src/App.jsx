@@ -6,11 +6,12 @@ import Hero from './components/sections/Hero'
 import Statement from './components/sections/Statement'
 import ProjectsDeck from './components/sections/ProjectsDeck'
 import About from './components/sections/About'
+import Contact from './components/sections/Contact'
 
 // px of wheel delta per one full section unit
 const SCROLL_DIST = 800
-// Max progress — grows as sections are added (currently: Statement + Deck entry + 4 cards + transition + About)
-const MAX_PROG = 10
+// Max progress — grows as sections are added (currently: Statement + Deck entry + 4 cards + transition + About + Contact + arch loop)
+const MAX_PROG = 11
 // Lerp factor
 const LERP = 0.07
 
@@ -30,7 +31,11 @@ export default function App() {
   const deckEl         = useRef(null)
   const aboutEl        = useRef(null)
   const portalRef      = useRef(null)
-  const targetProg     = useRef(0)
+  const fogRef          = useRef(null)
+  const fogParticlesRef = useRef([])
+  const contactEl       = useRef(null)
+  const archRef         = useRef(null)
+  const targetProg      = useRef(0)
   const currentProg    = useRef(0)
   const displaySection = useRef(1)
 
@@ -41,7 +46,9 @@ export default function App() {
     const tick = () => {
       const t = targetProg.current
       const c = currentProg.current
-      const next = Math.abs(t - c) < 0.0001 ? t : c + (t - c) * LERP
+      // Slow lerp at Hero→About entry and at arch curtain for more deliberate feel
+      const lerp = c > 9.5 ? LERP * 0.6 : c < 1.2 ? LERP * 0.5 : LERP
+      const next = Math.abs(t - c) < 0.0001 ? t : c + (t - c) * lerp
 
       currentProg.current = next
 
@@ -134,12 +141,83 @@ export default function App() {
         a.el.style.clipPath = `inset(${insetPct}% round ${insetR}px)`
       }
 
-      // ── Navbar counter ──────────────────────────────────────────
-      // About halfway at 7.4 + 0.5 = 7.9
-      const sec = next < 0.5 ? 1 : next < 2.05 ? 2 : next < 7.9 ? 3 : 4
+      // ── Fog: scroll-driven canvas sweep (prog 8.5 → 9.5) ───────
+      // Visual state is a pure function of fogProg — fully bidirectional.
+      // Particles have fixed positions; visibility = f(sweepX, particle.x).
+      const fogProg = clamp01((next - 8.5) / 1.0)
+      const canvas  = fogRef.current
+      if (canvas instanceof HTMLCanvasElement) {
+        const ctx = canvas.getContext('2d')
+        const W   = canvas.width  || window.innerWidth
+        const H   = canvas.height || window.innerHeight
+
+        ctx.clearRect(0, 0, W, H)
+
+        if (fogProg > 0) {
+          const fogEased = easeInOutCubic(fogProg)
+          const sweepX   = fogEased * W
+
+          // Particles — each fades in as the sweep crosses its x position
+          ctx.fillStyle = '#f0ede8'
+          for (const p of fogParticlesRef.current) {
+            const vis = clamp01((sweepX - (p.x - 80)) / 120)
+            if (vis <= 0) continue
+            ctx.globalAlpha = p.alpha * vis
+            ctx.beginPath()
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+            ctx.fill()
+          }
+          ctx.globalAlpha = 1
+
+          // Solid cream base covers particles on the left (fully covered zone)
+          const solidEnd = Math.max(0, sweepX - 280)
+          if (solidEnd > 0) {
+            ctx.fillStyle = 'rgba(240,237,232,0.97)'
+            ctx.fillRect(0, 0, solidEnd, H)
+          }
+
+          // Gradient feather at leading edge
+          const grad = ctx.createLinearGradient(solidEnd, 0, sweepX + 100, 0)
+          grad.addColorStop(0,    'rgba(240,237,232,0.97)')
+          grad.addColorStop(0.45, 'rgba(240,237,232,0.80)')
+          grad.addColorStop(0.75, 'rgba(240,237,232,0.35)')
+          grad.addColorStop(1,    'rgba(240,237,232,0.00)')
+          ctx.fillStyle = grad
+          ctx.fillRect(solidEnd, 0, sweepX + 100 - solidEnd, H)
+        }
+      }
+
+      // ── Contact: fades in as fog settles (prog 9.0 → 9.8) ──────
+      const contactProg = clamp01((next - 9.0) / 0.8)
+      const cnt = contactEl.current
+      if (cnt?.el) cnt.el.style.opacity = String(easeInOutCubic(contactProg))
+
+      // ── Arch curtain: rises from bottom (prog 10.0 → 11.0) ──────
+      // Covers Contact, then the loop resets to Hero seamlessly.
+      const archProg  = clamp01((next - 10.0) / 1.0)
+      const archEased = easeInOutCubic(archProg)
+      const arch = archRef.current
+      if (arch) {
+        arch.style.transform = `translateY(${(1 - archEased) * 100}%)`
+      }
+
+      // Loop: when arch fully covers the screen, snap back to the start
+      if (next >= MAX_PROG - 0.1) {
+        targetProg.current  = 0
+        currentProg.current = 0
+      }
+
+      // ── Navbar counter + cursor theme ───────────────────────────
+      const sec = next < 0.5 ? 1 : next < 2.05 ? 2 : next < 7.9 ? 3 : next < 9.2 ? 4 : 5
       if (sec !== displaySection.current) {
         displaySection.current = sec
         setCurrentSection(sec)
+        // Sections 2 (About) and 4 (Statement) have dark backgrounds
+        const darkBg = sec === 2 || sec === 4
+        document.documentElement.style.setProperty(
+          '--cursor-color',
+          darkBg ? '#f0ede8' : '#0a0a0a'
+        )
       }
 
       rafId = requestAnimationFrame(tick)
@@ -154,7 +232,8 @@ export default function App() {
     const clamp = (v) => Math.max(0, Math.min(MAX_PROG, v))
 
     const onWheel = (e) => {
-      targetProg.current = clamp(targetProg.current + e.deltaY / SCROLL_DIST)
+      const delta = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 350)
+      targetProg.current = clamp(targetProg.current + delta / SCROLL_DIST)
     }
 
     let touchY = 0
@@ -188,17 +267,48 @@ export default function App() {
     }
   }, [])
 
+  // Canvas setup — sizes the canvas and pre-generates static fog particles.
+  // Particles are fixed positions; the RAF loop only reads them, never mutates.
+  useEffect(() => {
+    const init = () => {
+      const c = fogRef.current
+      if (!(c instanceof HTMLCanvasElement)) return
+      c.width  = window.innerWidth
+      c.height = window.innerHeight
+      fogParticlesRef.current = Array.from({ length: 600 }, () => ({
+        x:     Math.random() * c.width,
+        y:     Math.random() * c.height,
+        r:     40 + Math.random() * 80,
+        alpha: 0.06 + Math.random() * 0.09,
+      }))
+    }
+    init()
+    window.addEventListener('resize', init)
+    return () => window.removeEventListener('resize', init)
+  }, [])
+
   return (
     <>
       <CustomCursor />
       <Navbar currentSection={currentSection} />
       <Hero />
-      <Statement ref={statementEl} />
+      <About ref={statementEl} />
       <ProjectsDeck ref={deckEl} />
       <div className="portal-overlay">
         <div ref={portalRef} className="portal-dot" />
       </div>
-      <About ref={aboutEl} />
+      <Statement ref={aboutEl} />
+      <canvas ref={fogRef} className="fog-canvas" />
+      <Contact ref={contactEl} />
+      <div ref={archRef} className="arch-curtain">
+        <div className="arch-curtain__edge" />
+        <div className="arch-curtain__label">
+          <span className="arch-curtain__label-rule" />
+          <span>↑ BACK TO HOME</span>
+          <span className="arch-curtain__label-rule" />
+        </div>
+        <div className="arch-curtain__fill" />
+      </div>
     </>
   )
 }
