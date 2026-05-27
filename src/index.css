@@ -1260,4 +1260,24 @@ a {
   .project-card:nth-child(3) { transition-delay: 0.2s; }
   .project-card:nth-child(4) { transition-delay: 0.3s; }
 
+  /* ── Un-fix all sections — normal document flow on mobile ── */
+  .hero,
+  .statement,
+  .projects-deck,
+  .about,
+  .contact {
+    position: relative !important;
+    width: 100% !important;
+    transform: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    z-index: auto !important;
+    inset: auto !important;
+  }
+
+  /* Navbar — fixed is fine, just reduce horizontal padding */
+  .navbar {
+    padding: 0 20px;
+  }
+
 } /* end @media (max-width: 768px) */
