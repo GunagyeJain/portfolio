@@ -292,6 +292,18 @@ export default function App() {
     return () => window.removeEventListener('resize', init)
   }, [])
 
+  // Mobile scroll-triggered fade-ins — IntersectionObserver replaces the RAF loop
+  useEffect(() => {
+    if (!IS_MOBILE) return
+    const els = document.querySelectorAll('.section-animate, .project-card')
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => e.target.classList.toggle('is-visible', e.isIntersecting)),
+      { threshold: 0.12 }
+    )
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+
   return (
     <>
       <CustomCursor />
