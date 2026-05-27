@@ -1302,4 +1302,17 @@ a {
     padding-bottom: 32px;
   }
 
+  /* ── Statement ──────────────────────────────────────────── */
+  .statement {
+    min-height: 100svh;
+  }
+
+  .statement__inner {
+    padding: 60px 24px;
+  }
+
+  .statement__line {
+    font-size: clamp(36px, 12vw, 72px);
+  }
+
 } /* end @media (max-width: 768px) */
