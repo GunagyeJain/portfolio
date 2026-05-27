@@ -1340,4 +1340,35 @@ a {
     pointer-events: auto !important;
   }
 
+  /* ── About ──────────────────────────────────────────────── */
+  .about {
+    min-height: 100svh;
+    padding: 80px 24px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid > :nth-child(1),
+  .about-grid > :nth-child(2) {
+    display: none;
+  }
+
+  .about-bio {
+    max-width: 100%;
+    align-self: center;
+  }
+
+  .about-bgword {
+    font-size: 40vw;
+  }
+
+  .about-footnote {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 40px;
+  }
+
 } /* end @media (max-width: 768px) */
