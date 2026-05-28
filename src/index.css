@@ -1090,6 +1090,10 @@ a {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+.contact-link--resume:hover .contact-link__arrow {
+  transform: translateY(3px);
+}
+
 /* ── Arch curtain (loop transition) ──────────────────────── */
 
 .arch-curtain {

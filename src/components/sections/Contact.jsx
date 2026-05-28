@@ -64,6 +64,11 @@ const Contact = forwardRef(function Contact(_, ref) {
               <span className="contact-link__arrow">→</span>
             </a>
           ))}
+          <a href="/resume.pdf" download className="contact-link contact-link--resume">
+            <span className="contact-link__tag">RESUME</span>
+            <span className="contact-link__val">Download CV</span>
+            <span className="contact-link__arrow">↓</span>
+          </a>
         </div>
       </div>
 

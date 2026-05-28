@@ -12,8 +12,8 @@ const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches
 
 // px of wheel delta per one full section unit
 const SCROLL_DIST = 800
-// Max progress — grows as sections are added (currently: Statement + Deck entry + 4 cards + transition + About + Contact + arch loop)
-const MAX_PROG = 11
+// Max progress — Contact fully visible at ~9.8; clamp to 10 so scroll stops there
+const MAX_PROG = 10
 // Lerp factor
 const LERP = 0.07
 
@@ -36,7 +36,6 @@ export default function App() {
   const fogRef          = useRef(null)
   const fogParticlesRef = useRef([])
   const contactEl       = useRef(null)
-  const archRef         = useRef(null)
   const targetProg      = useRef(0)
   const currentProg    = useRef(0)
   const displaySection = useRef(1)
@@ -49,8 +48,8 @@ export default function App() {
     const tick = () => {
       const t = targetProg.current
       const c = currentProg.current
-      // Slow lerp at Hero→About entry and at arch curtain for more deliberate feel
-      const lerp = c > 9.5 ? LERP * 0.6 : c < 1.2 ? LERP * 0.5 : LERP
+      // Slow lerp at Hero→About entry for more deliberate feel
+      const lerp = c < 1.2 ? LERP * 0.5 : LERP
       const next = Math.abs(t - c) < 0.0001 ? t : c + (t - c) * lerp
 
       currentProg.current = next
@@ -195,21 +194,6 @@ export default function App() {
       const cnt = contactEl.current
       if (cnt?.el) cnt.el.style.opacity = String(easeInOutCubic(contactProg))
 
-      // ── Arch curtain: rises from bottom (prog 10.0 → 11.0) ──────
-      // Covers Contact, then the loop resets to Hero seamlessly.
-      const archProg  = clamp01((next - 10.0) / 1.0)
-      const archEased = easeInOutCubic(archProg)
-      const arch = archRef.current
-      if (arch) {
-        arch.style.transform = `translateY(${(1 - archEased) * 100}%)`
-      }
-
-      // Loop: when arch fully covers the screen, snap back to the start
-      if (next >= MAX_PROG - 0.1) {
-        targetProg.current  = 0
-        currentProg.current = 0
-      }
-
       // ── Navbar counter + cursor theme ───────────────────────────
       const sec = next < 0.5 ? 1 : next < 2.05 ? 2 : next < 7.9 ? 3 : next < 9.2 ? 4 : 5
       if (sec !== displaySection.current) {
@@ -317,15 +301,6 @@ export default function App() {
       <Statement ref={aboutEl} />
       <canvas ref={fogRef} className="fog-canvas" />
       <Contact ref={contactEl} />
-      <div ref={archRef} className="arch-curtain">
-        <div className="arch-curtain__edge" />
-        <div className="arch-curtain__label">
-          <span className="arch-curtain__label-rule" />
-          <span>↑ BACK TO HOME</span>
-          <span className="arch-curtain__label-rule" />
-        </div>
-        <div className="arch-curtain__fill" />
-      </div>
     </>
   )
 }
